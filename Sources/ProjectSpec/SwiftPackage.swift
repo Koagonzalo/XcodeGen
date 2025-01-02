@@ -101,7 +101,7 @@ extension SwiftPackage: JSONEncodable {
     }
 }
 
-extension SwiftPackage.VersionRequirement: JSONObjectConvertible {
+extension SwiftPackage.VersionRequirement: JSONUtilities.JSONObjectConvertible {
 
     public init(jsonDictionary: JSONDictionary) throws {
         if jsonDictionary["exactVersion"] != nil {
@@ -125,5 +125,15 @@ extension SwiftPackage.VersionRequirement: JSONObjectConvertible {
         } else {
             throw SpecParsingError.unknownPackageRequirement(jsonDictionary)
         }
+    }
+}
+
+extension SwiftPackage: PathContainer {
+    static var pathProperties: [PathProperty] {
+        [
+            .dictionary([
+                .string("path"),
+            ]),
+        ]
     }
 }
